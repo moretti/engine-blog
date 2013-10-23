@@ -5,6 +5,9 @@ from djangoappengine.settings_base import *
 
 import os
 
+DEBUG = os.environ.get('SERVER_SOFTWARE', '').startswith('Dev')
+TEMPLATE_DEBUG = DEBUG
+
 # Activate django-dbindexer for the default database
 DATABASES['native'] = DATABASES['default']
 DATABASES['default'] = {'ENGINE': 'dbindexer', 'TARGET': 'native'}

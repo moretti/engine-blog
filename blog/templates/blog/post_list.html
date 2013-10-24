@@ -1,18 +1,47 @@
 {% extends "base.html" %}
 
 {% load url from future %}
+{% load markup %}
 
 {% block content %}
-
-  <h3>Posts</h3>
-  <ul>
-    {% for post in object_list %}
-    <li>{{ post.title }}  :  
-    <a href="{% url "post_edit" post.id %}">{{ post.title }}</a>
-    <a href="{% url "post_delete" post.id %}">delete</a>
-    </li>
+  {% for post in object_list %}
+    <article class="entry">
+      <header>
+        <h2><a href="{% url 'blog:post_detail' post.id %}">{{ post.title }}</a></h2>
+        <h5>Posted {{ post.pub_date }} by {{ post.author }}</h5>
+      </header>
+      <div class="entry-content">
+        {{ post.body|markdown }}
+      </div>
+      {% if user.is_authenticated %}
+        <div class="btn-group">
+          <a class="btn btn-default" href="{% url 'blog:post_edit' post.id %}">Edit</a>
+          <a class="btn btn-default" href="{% url 'blog:post_delete' post.id %}">Delete</a>
+        </div>
+      {% endif %}
+    </article>
+  {% endfor %}
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+      <li><a href="?page={{ page_obj.previous_page_number }}" class="prev">&lsaquo;&lsaquo; Previous</a></li>
+    {% else %}
+        <li class="disabled prev"><a href="#">&lsaquo;&lsaquo; Previous</a></li>
+    {% endif %}
+    {% for page in pages %}
+        {% if page %}
+            {% ifequal page page_obj.number %}
+                <li class="current page active"><a href="#">{{ page }}</a></li>
+            {% else %}
+                <li><a href="?page={{ page }}" class="page">{{ page }}</a></li>
+            {% endifequal %}
+        {% else %}
+            ...
+        {% endif %}
     {% endfor %}
+    {% if page_obj.has_next %}
+        <li><a href="?page={{ page_obj.next_page_number }}" class="next">Next &rsaquo;&rsaquo;</a></li>
+    {% else %}
+        <li class="disabled next"><a href="#">Next &rsaquo;&rsaquo;</a></li>
+    {% endif %}
   </ul>
-
-  <a href="{% url "post_new" %}">New</a>
 {% endblock %}

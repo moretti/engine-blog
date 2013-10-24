@@ -55,13 +55,14 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.media',
 )
 
+
 # This test runner captures stdout and associates tracebacks with their
 # corresponding output. Helps a lot with print-debugging.
 TEST_RUNNER = 'djangotoolbox.test.CapturingTestSuiteRunner'
 
 STATIC_URL = '/static/'
 
-TEMPLATE_DIRS = (os.path.join(os.path.dirname(__file__), 'templates'),)
+TEMPLATE_DIRS = (os.path.join(os.path.dirname(__file__), 'templates'), os.path.join(os.path.dirname(__file__), 'blog/templates'))
 
 ROOT_URLCONF = 'urls'
 

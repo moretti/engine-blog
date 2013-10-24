@@ -12,5 +12,6 @@ autoload
 mediagenerator
 filetransfers
 mapreduce
+markdown
 
 build

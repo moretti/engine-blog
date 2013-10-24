@@ -13,5 +13,5 @@ urlpatterns = patterns(
         'django.contrib.auth.views.login'),
     url(r'^accounts/logout/$',
         'django.contrib.auth.views.logout'),
-    url(r'^', include('blog.urls')),
+    url(r'^', include('blog.urls', namespace='blog')),
 )

@@ -8,7 +8,7 @@ urlpatterns = patterns(
     '',
     url(r'^$',
         views.PostList.as_view(), name='post_list'),
-    url(r'^id/(?P<pk>\d+)$',
+    url(r'^(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<pk>\d+)/(?P<slug>[-\w]+)$',
         views.PostDetail.as_view(), name='post_detail'),
     url(r'^new-post$',
         login_required(views.PostCreate.as_view()), name='post_new'),

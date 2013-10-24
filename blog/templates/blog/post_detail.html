@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% load url from future %}
+{% load markup %}
+
+{% block content %}
+  {% with post=object %}
+  <article class="entry">
+      <header>
+        <h2><a href="{% url 'blog:post_detail' post.id %}">{{ post.title }}</a></h2>
+        <h5>Posted {{ post.pub_date }} by {{ post.author }}</h5>
+      </header>
+      <div class="entry-content">
+        {{ post.body|markdown }}
+      </div>
+      {% if user.is_authenticated %}
+        <div class="btn-group">
+          <a class="btn btn-default" href="{% url 'blog:post_edit' post.id %}">Edit</a>
+          <a class="btn btn-default" href="{% url 'blog:post_delete' post.id %}">Delete</a>
+        </div>
+      {% endif %}
+    </article>
+  <section class="comments">
+    <div id="disqus_thread"></div>
+      <script type="text/javascript">
+          var disqus_shortname = 'app-engine-blog';
+
+          (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  </section>
+  {% endwith %}
+{% endblock %}

@@ -33,6 +33,7 @@ INSTALLED_APPS = (
     'djangotoolbox',
     'autoload',
     'dbindexer',
+    'crispy_forms',
 
     # djangoappengine should come last, so it can override a few manage.py
     # commands
@@ -63,3 +64,5 @@ STATIC_URL = '/static/'
 TEMPLATE_DIRS = (os.path.join(os.path.dirname(__file__), 'templates'),)
 
 ROOT_URLCONF = 'urls'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'

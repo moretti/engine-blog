@@ -4,44 +4,59 @@
 {% load markup %}
 
 {% block content %}
-  {% for post in object_list %}
-    <article class="entry">
-      <header>
-        <h2><a href="{% url 'blog:post_detail' year=post.pub_date.year month=post.pub_date.month pk=post.id slug=post.slug %}">{{ post.title }}</a></h2>
-        <h5>Posted {{ post.pub_date }} by {{ post.author }}</h5>
-      </header>
-      <div class="entry-content">
-        {{ post.body|markdown }}
-      </div>
-      {% if user.is_authenticated %}
-        <div class="btn-group">
-          <a class="btn btn-default" href="{% url 'blog:post_edit' post.id %}">Edit</a>
-          <a class="btn btn-default" href="{% url 'blog:post_delete' post.id %}">Delete</a>
-        </div>
-      {% endif %}
-    </article>
-  {% endfor %}
-  <ul class="pagination">
-    {% if page_obj.has_previous %}
-      <li><a href="?page={{ page_obj.previous_page_number }}" class="prev">&lsaquo;&lsaquo; Previous</a></li>
-    {% else %}
-        <li class="disabled prev"><a href="#">&lsaquo;&lsaquo; Previous</a></li>
-    {% endif %}
-    {% for page in pages %}
-        {% if page %}
-            {% ifequal page page_obj.number %}
-                <li class="current page active"><a href="#">{{ page }}</a></li>
-            {% else %}
-                <li><a href="?page={{ page }}" class="page">{{ page }}</a></li>
-            {% endifequal %}
+
+  <div class="row">
+    <div class="col-lg-9">
+      {% for post in object_list %}
+        <article class="entry">
+          <header>
+            <h2><a href="{% url 'blog:post_detail' year=post.pub_date.year month=post.pub_date.month pk=post.id slug=post.slug %}">{{ post.title }}</a></h2>
+            <h5>Posted {{ post.pub_date }} by {{ post.author }}</h5>
+          </header>
+          <div class="entry-content">
+            {{ post.body|markdown }}
+          </div>
+          {% if user.is_authenticated %}
+            <div class="btn-group btn-group-xs">
+              <a class="btn btn-default" href="{% url 'blog:post_edit' post.id %}">Edit</a>
+              <a class="btn btn-default" href="{% url 'blog:post_delete' post.id %}">Delete</a>
+            </div>
+          {% endif %}
+        </article>
+      {% endfor %}
+      <ul class="pagination">
+        {% if page_obj.has_previous %}
+          <li><a href="?page={{ page_obj.previous_page_number }}" class="prev">&lsaquo;&lsaquo; Previous</a></li>
         {% else %}
-            ...
+            <li class="disabled prev"><a href="#">&lsaquo;&lsaquo; Previous</a></li>
         {% endif %}
-    {% endfor %}
-    {% if page_obj.has_next %}
-        <li><a href="?page={{ page_obj.next_page_number }}" class="next">Next &rsaquo;&rsaquo;</a></li>
-    {% else %}
-        <li class="disabled next"><a href="#">Next &rsaquo;&rsaquo;</a></li>
-    {% endif %}
-  </ul>
+        {% for page in pages %}
+            {% if page %}
+                {% ifequal page page_obj.number %}
+                    <li class="current page active"><a href="#">{{ page }}</a></li>
+                {% else %}
+                    <li><a href="?page={{ page }}" class="page">{{ page }}</a></li>
+                {% endifequal %}
+            {% else %}
+                ...
+            {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+            <li><a href="?page={{ page_obj.next_page_number }}" class="next">Next &rsaquo;&rsaquo;</a></li>
+        {% else %}
+            <li class="disabled next"><a href="#">Next &rsaquo;&rsaquo;</a></li>
+        {% endif %}
+      </ul>
+    </div>
+    <div class="col-lg-3">
+      <div class="sidebar">
+        <div class="sidebar-title">Recent Posts</div>
+        <ul>
+          {% for post in object_list %}
+            <li><a href="{% url 'blog:post_detail' year=post.pub_date.year month=post.pub_date.month pk=post.id slug=post.slug %}">{{ post.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
 {% endblock %}

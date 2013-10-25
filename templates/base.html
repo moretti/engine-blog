@@ -26,7 +26,7 @@
           <ul class="nav navbar-nav">
             <li><a href="{% url 'blog:post_list' %}">Blog</a></li>
             <li><a href="{% url 'blog:about' %}">About</a></li>
-            <li><a href="#">Archives</a></li>
+            <li><a href="{% url 'blog:archives' %}">Archives</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             {% if user.is_authenticated %}

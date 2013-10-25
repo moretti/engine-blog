@@ -14,7 +14,7 @@
         {{ post.body|markdown }}
       </div>
       {% if user.is_authenticated %}
-        <div class="btn-group">
+        <div class="btn-group btn-group-xs">
           <a class="btn btn-default" href="{% url 'blog:post_edit' post.id %}">Edit</a>
           <a class="btn btn-default" href="{% url 'blog:post_delete' post.id %}">Delete</a>
         </div>

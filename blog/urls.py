@@ -18,4 +18,6 @@ urlpatterns = patterns(
         login_required(views.PostDelete.as_view()), name='post_delete'),
     url(r'^about$',
         TemplateView.as_view(template_name="about.html"), name='about'),
+    url(r'^archives$',
+        views.Archives.as_view(), name='archives'),
 )

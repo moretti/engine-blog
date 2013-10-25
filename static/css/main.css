@@ -19,3 +19,30 @@ body {
   font-size: 18px;
   font-weight: bold;
 }
+
+#archives h2 {
+  color: #777777;
+  display: inline-block;
+  float: left;
+  margin-top: 0;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+#archives article {
+  padding-bottom: 10px;
+  padding-left: 15px;
+  margin-left: 70px;
+}
+
+#archives h1 {
+  margin-top: 0;
+  font-size: 22px;
+}
+
+#archives time {
+  margin-top: 3px;
+  color: #777777;
+  text-transform: uppercase;
+  font-size: 15px;
+}

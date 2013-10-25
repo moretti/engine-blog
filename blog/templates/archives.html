@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% load url from future %}
+
+{% block title %} - Archives{% endblock %}
+
+{% block content %}
+<h1>Archives</h1>
+
+<div id="archives">
+  <hr>
+  {% regroup posts by pub_date|date:"Y" as year_list %}
+  {% for year in year_list %}
+      <h2>{{ year.grouper }}</h2>
+      {% for post in year.list %}
+        <article class="row">
+          <time class="col-md-1" datetime="{{ post.pub_date|date:"U" }}">
+            <span class="month">{{ post.pub_date|date:"b" }}</span>
+            <span class="day">{{ post.pub_date|date:"d" }}</span>
+          </time>
+          <div class="col-md-9">
+            <h1><a href="{% url 'blog:post_detail' year=post.pub_date.year month=post.pub_date.month pk=post.id slug=post.slug %}">{{ post.title }}</a></h1>
+          </div>
+        </article>
+      {% endfor %}
+      <hr style="margin-top: 5px;">
+  {% endfor %}
+</div>
+
+{% endblock content %}

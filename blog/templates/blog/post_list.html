@@ -52,7 +52,7 @@
       <div class="sidebar">
         <div class="sidebar-title">Recent Posts</div>
         <ul>
-          {% for post in object_list %}
+          {% for post in object_list|slice:":5" %}
             <li><a href="{% url 'blog:post_detail' year=post.pub_date.year month=post.pub_date.month pk=post.id slug=post.slug %}">{{ post.title }}</a></li>
           {% endfor %}
         </ul>

@@ -14,7 +14,7 @@
             <h5>Posted {{ post.pub_date }} by {{ post.author }}</h5>
           </header>
           <div class="entry-content">
-            {{ post.body|markdown }}
+            {{ post.body|markdown:"safe" }}
           </div>
           {% if user.is_authenticated %}
             <div class="btn-group btn-group-xs">

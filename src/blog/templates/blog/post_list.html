@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% load url from future %}
-{% load markup %}
+{% load blog_extras %}
 
 {% block content %}
 
@@ -14,7 +14,7 @@
             <h5>Posted {{ post.pub_date }} by {{ post.author }}</h5>
           </header>
           <div class="entry-content">
-            {{ post.body|markdown:"safe" }}
+            {{ post.body|markdown }}
           </div>
           {% if user.is_authenticated %}
             <div class="btn-group btn-group-xs">
